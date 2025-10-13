@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cart</title>
+
+  <!-- Link to external CSS file -->
+  <link rel="stylesheet" href="css/cart.css" />
+</head>
+<body>
+
+  <header>
+  <div class="logo-title">
+    <h1>🎨 VisualVerse</h1>
+  </div>
+  <nav aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="gallery.html" aria-current="page">Gallery</a>
+    <a href="commission.html">Commission</a>
+    <a href="cart.html" class="cart-link">
+      Cart <span id="cart-count">0</span> 🛒
+    </a>
+    <a href="orders.html">Your Orders</a>
+    <a href="track-order.html">Track Order</a>
+  </nav>
+</header>
+
+    <!-- Step 1: Cart Summary -->
+    <section id="step-cart" class="step active-step">
+      <ul id="cart-items"></ul>
+      <p id="empty-cart-msg">Your cart is currently empty.</p>
+      <div style="text-align: right; margin-top: 15px;">
+        <button id="buy-now-btn" disabled>Buy Now</button>
+      </div>
+    </section>
+
+    <!-- Step 2: Address Form -->
+    <section id="step-address" class="step">
+      <h2>Shipping Address</h2>
+      <form id="address-form">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="John Doe" required />
+        
+        <label for="street">Street Address</label>
+        <textarea id="street" placeholder="123 Main St" rows="3" required></textarea>
+        
+        <label for="city">City</label>
+        <input type="text" id="city" placeholder="City" required />
+        
+        <label for="state">State/Province</label>
+        <input type="text" id="state" placeholder="State" required />
+        
+        <label for="zip">Zip/Postal Code</label>
+        <input type="text" id="zip" placeholder="12345" required />
+        
+        <label for="country">Country</label>
+        <input type="text" id="country" placeholder="Country" required />
+
+        <div class="nav-buttons">
+          <button type="button" id="address-back-btn">Back to Cart</button>
+          <button type="submit" id="address-next-btn">Next: Payment</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Step 3: Payment Options -->
+    <section id="step-payment" class="step">
+  <h2>Payment</h2>
+  <form id="payment-form">
+    <div id="payment-options-container">
+   <div class="payment-option">
+  <input type="radio" id="credit-card" name="payment" value="Credit Card" checked />
+  <label for="credit-card">
+    <span class="icon" aria-hidden="true">
+      <!-- Inline SVG icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4z"/>
+        <path fill-rule="evenodd" d="M16 7v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V7h16zM2 9a1 1 0 1 0 0 2h12a1 1 0 0 0 0-2H2z"/>
+      </svg>
+    </span>
+    Credit Card
+  </label>
+</div>
+
+
+    <div class="payment-option">
+      <input type="radio" id="debit-card" name="payment" value="Debit Card" />
+      <label for="debit-card">
+        <span class="icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4z"/>
+            <path fill-rule="evenodd" d="M16 7v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V7h16zM2 9a1 1 0 1 0 0 2h12a1 1 0 0 0 0-2H2z"/>
+          </svg>
+        </span>
+        Debit Card
+      </label>
+    </div>
+
+    <div class="payment-option">
+      <input type="radio" id="paypal" name="payment" value="PayPal" />
+      <label for="paypal">
+        <span class="icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M6 2h7a4 4 0 0 1 0 8H7l-1 7H4l1-7H2V6h6V2z"/>
+          </svg>
+        </span>
+        PayPal
+      </label>
+    </div>
+
+    <div class="payment-option">
+      <input type="radio" id="upi" name="payment" value="UPI" />
+      <label for="upi">
+        <span class="icon" aria-hidden="true" style="font-weight:bold;">💸</span>
+        UPI
+      </label>
+    </div>
+    </div> 
+
+    <div class="nav-buttons">
+      <button type="button" id="payment-back-btn">Back to Address</button>
+      <button type="submit" id="payment-submit-btn">Pay Now</button>
+    </div>
+  </form>
+</section>
+
+    <!-- Step 4: Order Tracking -->
+    <section id="step-tracking" class="step">
+      <div class="order-tracking">
+        <h2>Order Placed Successfully! 🎉</h2>
+        <p>Thank you for your purchase. Your order is being processed.</p>
+        <p><strong>Order Number:</strong> <span id="order-number"></span></p>
+
+        <div class="progress-trail">
+          <div class="progress-step completed">
+            <span class="step-icon">✔️</span>
+            <span class="step-label">Order Confirmed</span>
+            <span class="step-date">2025-08-05</span>
+          </div>
+          <div class="progress-step">
+            <span class="step-icon">⌛</span>
+            <span class="step-label">Packed</span>
+            <span class="step-date" id="packed-date">Expected: 2025-08-07</span>
+          </div>
+          <div class="progress-step">
+            <span class="step-icon">🚚</span>
+            <span class="step-label">Shipped</span>
+            <span class="step-date" id="shipped-date">Expected: 2025-08-10</span>
+          </div>
+          <div class="progress-step">
+            <span class="step-icon">🏠</span>
+            <span class="step-label">Out for Delivery</span>
+            <span class="step-date" id="out-for-delivery-date">Expected: 2025-08-11</span>
+          </div>
+          <div class="progress-step">
+            <span class="step-icon">📦</span>
+            <span class="step-label">Delivered</span>
+            <span class="step-date" id="delivered-date">Expected: 2025-08-12</span>
+          </div>
+        </div>
+
+        <button id="track-order-btn">Update Order Status</button>
+        <button id="shop-more-btn">Back to Shopping</button>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem('artCart')) || [];
+    const cartList = document.getElementById('cart-items');
+    const emptyMsg = document.getElementById('empty-cart-msg');
+    const buyNowBtn = document.getElementById('buy-now-btn');
+
+    function showStep(stepId) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active-step'));
+      document.getElementById(stepId).classList.add('active-step');
+    }
+
+    function renderCart() {
+      cartList.innerHTML = '';
+      if (cart.length === 0) {
+        emptyMsg.style.display = 'block';
+        buyNowBtn.disabled = true;
+        return;
+      }
+      emptyMsg.style.display = 'none';
+      buyNowBtn.disabled = false;
+
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <div class="info">
+            <h3>${item.title}</h3>
+            <p><strong>Price:</strong> ${item.price}</p>
+            <p>${item.description}</p>
+          </div>
+          <div class="actions">
+            <button onclick="removeFromCart(${index})" style="background:#c0392b;">Remove</button>
+          </div>
+        `;
+        cartList.appendChild(li);
+      });
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('artCart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    buyNowBtn.addEventListener('click', () => showStep('step-address'));
+
+    const addressForm = document.getElementById('address-form');
+    const addressBackBtn = document.getElementById('address-back-btn');
+
+    addressBackBtn.addEventListener('click', () => showStep('step-cart'));
+
+    addressForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      showStep('step-payment');
+    });
+
+    const paymentForm = document.getElementById('payment-form');
+    const paymentBackBtn = document.getElementById('payment-back-btn');
+
+    paymentBackBtn.addEventListener('click', () => showStep('step-address'));
+
+    paymentForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const orderNum = generateOrderNumber();
+
+      let orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+      const date = new Date().toISOString().split('T')[0];
+
+      orders.push({ orderNumber: orderNum, date, status: 'Processing' });
+
+      localStorage.setItem('orders', JSON.stringify(orders));
+
+      localStorage.removeItem('artCart');
+      cart = [];
+
+      renderCart();
+      
+      showStep('step-tracking');
+    });
+
+    const orderNumberSpan = document.getElementById('order-number');
+    const orderStatusSpan = document.getElementById('order-status');
+    const trackOrderBtn = document.getElementById('track-order-btn');
+    const shopMoreBtn = document.getElementById('shop-more-btn');
+
+    function generateOrderNumber() {
+      let orderNum = 'ORD-' + Math.floor(Math.random() * 900000 + 100000);
+      orderNumberSpan.textContent = orderNum;
+      return orderNum;
+    }
+
+    trackOrderBtn.addEventListener('click', () => {
+      const steps = document.querySelectorAll('.progress-step');
+      let currentIndex = 1;
+      orderStatusSpan.textContent = "Order Confirmed";
+
+      steps.forEach((step, i) => {
+        if (i === 0) step.classList.add('completed');
+        else step.classList.remove('completed');
+      });
+
+      const statuses = [
+        { label: "Order Confirmed", icon: "✔️" },
+        { label: "Packed", icon: "⌛" },
+        { label: "Shipped", icon: "🚚" },
+        { label: "Out for Delivery", icon: "🏠" },
+        { label: "Delivered", icon: "📦" }
+      ];
+
+      const interval = setInterval(() => {
+        if (currentIndex >= steps.length) {
+          clearInterval(interval);
+          alert('Order Delivered. Thank you for shopping with us!');
+          orderStatusSpan.textContent = "Delivered";
+          return;
+        }
+        steps[currentIndex].classList.add('completed');
+        orderStatusSpan.textContent = statuses[currentIndex].label;
+        currentIndex++;
+      }, 3500);
+    });
+
+    shopMoreBtn.addEventListener('click', () => {
+      window.location.href = 'gallery.html';
+    });
+
+    window.addEventListener('DOMContentLoaded', renderCart);
+
+    window.removeFromCart = removeFromCart; 
+  </script>
+
+</body>
+</html>

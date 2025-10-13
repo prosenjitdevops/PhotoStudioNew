@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Track Order</title>
+  <link rel="stylesheet" href="css/cart.css" />
+</head>
+<body>
+    <header>
+  <div class="logo-title">
+    <h1>🎨 VisualVerse</h1>
+  </div>
+  <nav aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="gallery.html" aria-current="page">Gallery</a>
+    <a href="commission.html">Commission</a>
+    <a href="cart.html" class="cart-link">
+      Cart <span id="cart-count">0</span> 🛒
+    </a>
+    <a href="orders.html">Your Orders</a>
+    <a href="track-order.html">Track Order</a>
+  </nav>
+</header>
+  <main>
+    <h2>Order Details</h2>
+    <p><strong>Order Number:</strong> <span id="order-number"></span></p>
+    <p><strong>Order Date:</strong> <span id="order-date"></span></p>
+    <p><strong>Current Status:</strong> <span id="order-status"></span></p>
+
+    <div class="progress-trail" id="progress-trail">
+      <div class="progress-step" id="step-confirmed">
+        <span class="step-icon">✔️</span>
+        <span class="step-label">Order Confirmed</span>
+        <span class="step-date">Date: <span id="date-confirmed"></span></span>
+      </div>
+      <div class="progress-step" id="step-packed">
+        <span class="step-icon">📦</span>
+        <span class="step-label">Packed</span>
+        <span class="step-date" id="date-packed">Expected: --</span>
+      </div>
+      <div class="progress-step" id="step-shipped">
+        <span class="step-icon">🚚</span>
+        <span class="step-label">Shipped</span>
+        <span class="step-date" id="date-shipped">Expected: --</span>
+      </div>
+      <div class="progress-step" id="step-out-for-delivery">
+        <span class="step-icon">🏠</span>
+        <span class="step-label">Out for Delivery</span>
+        <span class="step-date" id="date-out-for-delivery">Expected: --</span>
+      </div>
+      <div class="progress-step" id="step-delivered">
+        <span class="step-icon">📦</span>
+        <span class="step-label">Delivered</span>
+        <span class="step-date" id="date-delivered">Expected: --</span>
+      </div>
+    </div>
+
+    <button id="update-status-btn">Update Status</button>
+    <button id="back-to-orders-btn">Back to Your Orders</button>
+  </main>
+
+  <script>
+    // Parse query parameters to get order number
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    const orderNumber = getQueryParam('order');
+    const orderNumberSpan = document.getElementById('order-number');
+    const orderDateSpan = document.getElementById('order-date');
+    const orderStatusSpan = document.getElementById('order-status');
+
+    const updateStatusBtn = document.getElementById('update-status-btn');
+    const backToOrdersBtn = document.getElementById('back-to-orders-btn');
+
+    // Progress step elements
+    const steps = [
+      { id: 'step-confirmed', label: 'Order Confirmed' },
+      { id: 'step-packed', label: 'Packed' },
+      { id: 'step-shipped', label: 'Shipped' },
+      { id: 'step-out-for-delivery', label: 'Out for Delivery' },
+      { id: 'step-delivered', label: 'Delivered' }
+    ];
+
+    // Load orders from localStorage
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+    // Find this order
+    const order = orders.find(o => o.orderNumber === orderNumber);
+
+    if (!order) {
+      alert('Order not found!');
+      window.location.href = 'orders.html';
+    } else {
+      orderNumberSpan.textContent = order.orderNumber;
+      orderDateSpan.textContent = order.date;
+      orderStatusSpan.textContent = order.status;
+
+      // Mark steps completed according to order status
+      function markSteps(status) {
+        let completedIndex = steps.findIndex(s => s.label === status);
+        if (completedIndex === -1) completedIndex = 0; // default to first
+
+        steps.forEach((step, idx) => {
+          const el = document.getElementById(step.id);
+          if (idx <= completedIndex) {
+            el.classList.add('completed');
+          } else {
+            el.classList.remove('completed');
+          }
+        });
+      }
+      markSteps(order.status);
+    }
+
+    // Simulate status updates on button click
+    updateStatusBtn.addEventListener('click', () => {
+      // Move order status forward in steps
+      const currentIndex = steps.findIndex(s => s.label === order.status);
+      if (currentIndex < steps.length - 1) {
+        order.status = steps[currentIndex + 1].label;
+        orderStatusSpan.textContent = order.status;
+
+        markSteps(order.status);
+
+        // Save updated status
+        localStorage.setItem('orders', JSON.stringify(orders));
+      } else {
+        alert('Order is already delivered.');
+      }
+    });
+
+    backToOrdersBtn.addEventListener('click', () => {
+      window.location.href = 'orders.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Page title -->
+  <title>Art Gallery</title>
+
+  <!-- External CSS for styling the gallery -->
+  <link rel="stylesheet" href="css/gallery.css" />
+
+  <!-- Inline style for back link -->
+  <style>
+    .back {
+      color: white;
+      text-decoration: none;
+    }
+    .back:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Blurred background image section -->
+  <div class="background-blur">
+    <img src="images/bg2.jpg" alt="Art 1" />
+  </div>
+
+  <!-- Page header with navigation -->
+  <header>
+  <div class="logo-title">
+    <h1>🎨 VisualVerse</h1>
+  </div>
+  <nav aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="gallery.html" aria-current="page">Gallery</a>
+    <a href="commission.html">Commission</a>
+    <a href="cart.html" class="cart-link">
+      Cart <span id="cart-count">0</span> 🛒
+    </a>
+    <a href="orders.html">Your Orders</a>
+    <a href="track-order.html">Track Order</a>
+  </nav>
+</header>
+
+  <!-- Filter section to filter artworks by category -->
+  <section class="filters">
+    <h2>Filter By</h2>
+    <select id="mediumFilter">
+      <option value="all">All Mediums</option>
+      <option value="digital">Digital</option>
+      <option value="watercolor">Watercolor</option>
+    </select>
+
+    <select id="themeFilter">
+      <option value="all">All Themes</option>
+      <option value="nature">Nature</option>
+      <option value="abstract">Abstract</option>
+      <option value="fantasy">Fantasy</option>
+    </select>
+
+    <select id="priceFilter">
+      <option value="all">All Prices</option>
+      <option value="low">Under ₹1000</option>
+      <option value="mid">₹1000 - ₹5000</option>
+      <option value="high">Above ₹5000</option>
+    </select>
+  </section>
+
+  <!-- Gallery section containing all artwork cards -->
+  <section id="gallery" class="gallery"></section>
+
+  <!-- JavaScript to filter and add cart functionality -->
+  <script>
+    const mediumFilter = document.getElementById('mediumFilter');
+    const themeFilter = document.getElementById('themeFilter');
+    const priceFilter = document.getElementById('priceFilter');
+    const gallery = document.getElementById('gallery');
+    const cartCountElem = document.getElementById('cart-count');
+    let allArtworks = [];
+
+    function getPriceClass(price) {
+      if (price > 5000) return 'high';
+      if (price >= 1000) return 'mid';
+      return 'low';
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('artCart')) || [];
+      cartCountElem.textContent = cart.length;
+    }
+
+    function addArtworkToCart(title, price, medium, theme, url) {
+      let cart = JSON.parse(localStorage.getItem('artCart')) || [];
+      // Optional: prevent duplicates by checking if artwork already in cart
+      const alreadyInCart = cart.some(item => item.title === title);
+      if (alreadyInCart) {
+        alert(`"${title}" is already in your cart.`);
+        return;
+      }
+      cart.push({ title, price, medium, theme, url });
+      localStorage.setItem('artCart', JSON.stringify(cart));
+      alert(`Added "${title}" to cart.`);
+      updateCartCount();
+    }
+
+    function renderArtworks(artworks) {
+      gallery.innerHTML = '';
+      artworks.forEach(art => {
+        const mediumClass = (art.medium || '').toLowerCase();
+        const themeClass = (art.theme || '').toLowerCase();
+        const priceClass = getPriceClass(Number(art.price));
+        const card = document.createElement('div');
+        card.className = `art-card ${mediumClass} ${themeClass} ${priceClass}`;
+        card.innerHTML = `
+          <img src="${art.url}" alt="${art.title}" />
+          <div class="info">
+            <h3>${art.title}</h3>
+            <p>${art.medium} | ${art.theme} | ₹${art.price}</p>
+            <button class="add-to-cart-btn">Add to Cart</button>
+          </div>
+        `;
+        gallery.appendChild(card);
+
+        // Add click listener on this card's add to cart button
+        const addToCartBtn = card.querySelector('.add-to-cart-btn');
+        addToCartBtn.addEventListener('click', () => {
+          addArtworkToCart(art.title, Number(art.price), art.medium, art.theme, art.url);
+        });
+      });
+    }
+
+    function applyFilters() {
+      const medium = mediumFilter.value;
+      const theme = themeFilter.value;
+      const price = priceFilter.value;
+      const filtered = allArtworks.filter(art => {
+        const mediumMatch = medium === 'all' || (art.medium && art.medium.toLowerCase() === medium);
+        const themeMatch = theme === 'all' || (art.theme && art.theme.toLowerCase() === theme);
+        const priceClass = getPriceClass(Number(art.price));
+        const priceMatch = price === 'all' || priceClass === price;
+        return mediumMatch && themeMatch && priceMatch;
+      });
+      renderArtworks(filtered);
+    }
+
+    async function loadArtworks() {
+      try {
+        const res = await fetch('/api/artworks');
+        allArtworks = await res.json();
+        renderArtworks(allArtworks);
+        updateCartCount();
+      } catch (error) {
+        console.error('Error loading artworks:', error);
+      }
+    }
+
+    mediumFilter.addEventListener('change', applyFilters);
+    themeFilter.addEventListener('change', applyFilters);
+    priceFilter.addEventListener('change', applyFilters);
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      await loadArtworks();
+    });
+  </script>
+
+</body>
+</html>

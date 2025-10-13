@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Orders</title>
+  <link rel="stylesheet" href="css/cart.css" />
+  <style>
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px 35px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 15px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+      min-height: 400px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+    th, td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #ff6f61;
+      color: #fff;
+      font-weight: 700;
+    }
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+    .track-btn {
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      font-size: 0.9rem;
+    }
+    .track-btn:hover {
+      background-color: #e85c4f;
+    }
+  </style>
+</head>
+<body>
+   <header>
+  <div class="logo-title">
+    <h1>🎨 VisualVerse</h1>
+  </div>
+  <nav aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="gallery.html" aria-current="page">Gallery</a>
+    <a href="commission.html">Commission</a>
+    <a href="cart.html" class="cart-link">
+      Cart <span id="cart-count">0</span> 🛒
+    </a>
+    <a href="orders.html">Your Orders</a>
+    <a href="track-order.html">Track Order</a>
+  </nav>
+</header>
+  <main>
+    <h2>Your Past Orders</h2>
+    <table id="orders-table">
+      <thead>
+        <tr>
+          <th>Order Number</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Track</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Orders rendered here -->
+      </tbody>
+    </table>
+    <p id="no-orders-msg" style="text-align:center; font-style: italic; margin-top:20px; display:none;">
+      You have no past orders.
+    </p>
+  </main>
+
+  <script>
+    // Fetch orders from localStorage (or backend in future)
+    // Each order: { orderNumber, date, status }
+    const ordersKey = 'orders'; // localStorage key
+    let orders = JSON.parse(localStorage.getItem(ordersKey)) || [];
+
+    const ordersTableBody = document.querySelector('#orders-table tbody');
+    const noOrdersMsg = document.getElementById('no-orders-msg');
+
+    function renderOrders() {
+      ordersTableBody.innerHTML = '';
+      if (orders.length === 0) {
+        document.getElementById('orders-table').style.display = 'none';
+        noOrdersMsg.style.display = 'block';
+        return;
+      }
+      document.getElementById('orders-table').style.display = 'table';
+      noOrdersMsg.style.display = 'none';
+
+      orders.forEach(order => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${order.orderNumber}</td>
+          <td>${order.date}</td>
+          <td>${order.status}</td>
+          <td><button class="track-btn" data-order="${order.orderNumber}">Track Order</button></td>
+        `;
+        ordersTableBody.appendChild(tr);
+      });
+
+      // Add click listeners to track buttons
+      document.querySelectorAll('.track-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const orderNum = e.target.getAttribute('data-order');
+          // Redirect to track order page with query param
+          window.location.href = `track-order.html?order=${encodeURIComponent(orderNum)}`;
+        });
+      });
+    }
+    renderOrders();
+  </script>
+</body>
+</html>

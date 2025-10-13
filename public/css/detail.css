@@ -1,0 +1,65 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background: #fff;
+}
+header {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 25px 10px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  color: #ffce55;
+}
+
+nav a {
+  color: white;
+  margin: 0 12px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1em;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #ffce55;
+}
+
+/* Blurred background image */
+.background-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('../images/bg1.jpg'); /* Replace with your image */
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px) brightness(0.7);
+  z-index: -1;
+}
+
+.detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+}
+.detail img {
+  max-width: 500px;
+  width: 100%;
+}
+.desc {
+  flex: 1;
+}
+.desc a {
+  display: inline-block;
+  margin-top: 1rem;
+  background: #222;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+}

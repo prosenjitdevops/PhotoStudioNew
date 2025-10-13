@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags for proper rendering and responsiveness -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Page title -->
+  <title>Commission Inquiry</title>
+
+  <!-- External CSS for page styling -->
+  <link rel="stylesheet" href="css/commission.css" />
+
+  <!-- Inline CSS for styling the back link -->
+  <style>
+    .back {
+      color: white;
+      text-decoration: none;
+    }
+
+    .back:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  <!-- External JavaScript file -->
+  <script src="js/script.js" defer></script>
+</head>
+
+<!-- Background image container with blur effect -->
+<div class="background-blur">
+  <img src="images/bg1.jpg" alt="Art 1" />
+</div>
+
+<body>
+  <!-- Header section with page title and navigation -->
+   <header>
+  <div class="logo-title">
+    <h1>🎨 VisualVerse</h1>
+  </div>
+  <nav aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="gallery.html" aria-current="page">Gallery</a>
+    <a href="commission.html">Commission</a>
+    <a href="cart.html" class="cart-link">
+      Cart <span id="cart-count">0</span> 🛒
+    </a>
+    <a href="orders.html">Your Orders</a>
+    <a href="track-order.html">Track Order</a>
+  </nav>
+</header>
+
+  <!-- Commission inquiry form for collecting user inputs -->
+  <form id="commission-form">
+    <!-- Input for user's name -->
+    <input type="text" name="name" placeholder="Name" required />
+
+    <!-- Input for user's email -->
+    <input type="email" name="email" placeholder="Email" required />
+
+    <!-- Input for specifying artwork type -->
+    <input type="text" name="artworkType" placeholder="Artwork Type (e.g., Portrait, Landscape)" required />
+
+    <!-- Input for user's budget -->
+    <input type="text" name="budget" placeholder="Budget (in ₹)" required />
+
+    <!-- Text area for artwork description -->
+    <textarea name="description" placeholder="Describe what you want..." rows="6" required></textarea>
+
+    <input type="file" name="referenceImage" accept="image/*" />
+
+    <!-- Submit button for sending inquiry -->
+    <button type="submit">Send Inquiry</button>
+  </form>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!-- artwork-detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Set character encoding and responsive behavior -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Page title -->
+  <title>Artwork Detail</title>
+
+  <!-- Link to external CSS for styling -->
+  <link rel="stylesheet" href="css/artwork-detail.css">
+
+  <!-- Link to external JavaScript file (loaded after HTML parsing) -->
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <!-- Header with page title and navigation menu -->
+  <header>
+    <h1>Artwork Title</h1>
+    <nav>
+      <!-- Navigation links -->
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="commission.html">Commission</a>
+      <a href="cart.html">Cart</a>
+    </nav>
+  </header>
+
+  <!-- Main content area -->
+  <main>
+  <div class="artwork-detail-row">
+    <img src="images/2.png" alt="Artwork Preview" class="art-preview">
+
+    <section class="art-info">
+      <p><strong>Medium:</strong> Digital</p>
+      <p><strong>Size:</strong> 1920x1080 px</p>
+      <p><strong>Date:</strong> June 2025</p>
+      <p><strong>License:</strong> Personal Use Only</p>
+      <p><strong>Price:</strong> ₹3,000</p>
+      <p><strong>Description:</strong> A beautiful digital landscape painting perfect for wall decor or backgrounds.</p>
+      <button onclick="addArtworkToCart(
+        'Digital Landscape',
+        '₹3,000',
+        'A beautiful digital landscape painting perfect for wall decor or backgrounds.'
+      )">
+        Add to Cart
+      </button>
+    </section>
+  </div>
+</main>
+</body>
+</html>

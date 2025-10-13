@@ -1,0 +1,256 @@
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+font-family: 'Segoe UI', sans-serif;
+color: #fff;
+background-color: #000;
+position: relative;
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+
+/* Background Blur */
+.background-blur {
+position: fixed;
+top: 0;
+left: 0;
+height: 100vh;
+width: 100vw;
+background-image: url('../images/bg.jpg');
+background-size: cover;
+background-position: center;
+filter: blur(5px) brightness(0.6);
+z-index: -1;
+}
+
+
+/* Header */
+header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background: rgba(0, 0, 0, 0.65);
+padding: 15px 30px;
+color: #fff;
+border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+position: relative;
+z-index: 10;
+}
+
+
+header .logo-title h1 {
+margin: 0;
+font-size: 1.8em;
+color: #ffd700;
+}
+
+
+header nav {
+display: flex;
+gap: 20px;
+}
+
+
+header nav a {
+text-decoration: none;
+color: #fff;
+padding: 8px 14px;
+border-radius: 5px;
+transition: background 0.3s ease;
+}
+
+
+header nav a:hover {
+background: rgba(255, 255, 255, 0.1);
+}
+
+
+/* --- Auth UI Fixes --- */
+#header-nav {
+display: flex;
+align-items: center;
+gap: 14px;
+}
+
+
+/* Sign In Button */
+.auth-link {
+font-weight: 500;
+border: 1.5px solid #ffd700;
+padding: 6px 20px;
+margin-right: 8px;
+background: transparent;
+color: #ffd700;
+border-radius: 6px;
+transition: background 0.25s, color 0.25s, border 0.25s;
+cursor: pointer;
+}
+.auth-link:hover {
+background: #ffd700;
+color: #111;
+}
+
+
+/* Sign Up Button */
+.signup-btn {
+background-color: #ffd700;
+color: #111;
+border: none;
+font-weight: 600;
+margin-right: 8px;
+}
+.signup-btn:hover {
+background-color: #ffcc00;
+color: #000;
+}
+
+
+/* Welcome username */
+#welcomeUser {
+background: rgba(255, 215, 0, 0.09);
+border-radius: 5px;
+padding: 6px 15px;
+color: #ffd700;
+font-weight: 600;
+margin-right: 10px;
+letter-spacing: 0.5px;
+font-size: 1em;
+display: inline-block;
+transition: background 0.3s;
+}
+
+
+/* Sign Out button */
+#signOutBtn {
+background: transparent;
+border: 1.5px solid #ffd700;
+color: #ffd700;
+padding: 6px 20px;
+border-radius: 6px;
+font-weight: 600;
+cursor: pointer;
+transition: background 0.25s, color 0.25s, border 0.25s;
+}
+#signOutBtn:hover {
+background: #ffd700;
+color: #111;
+border-color: #ffd700;
+}
+
+
+/* Intro */
+.intro {
+text-align: center;
+padding: 60px 20px;
+backdrop-filter: blur(2px);
+}
+
+
+.intro h2 {font-size: 1.8em;
+margin-bottom: 10px;
+}
+
+
+.intro p {
+font-size: 1.1em;
+max-width: 600px;
+margin: 0 auto;
+color: #ddd;
+}
+
+
+/* Carousel */
+.carousel {
+padding: 50px 20px;
+text-align: center;
+backdrop-filter: blur(2px);
+}
+
+
+.carousel h2 {
+font-size: 1.6em;
+margin-bottom: 20px;
+}
+
+
+.carousel-wrapper {
+overflow: hidden;
+width: 100%;
+}
+
+
+.slide-track {
+display: flex;
+width: calc(250px * 20);
+animation: scroll 40s linear infinite;
+}
+
+
+.slide-track img {
+height: 200px;
+width: 250px;
+margin: 0 10px;
+border-radius: 10px;
+object-fit: cover;
+transition: transform 0.3s;
+}
+
+
+.slide-track img:hover {
+transform: scale(1.08);
+}
+
+
+/* Cart Counter Styling */
+#cart-count {
+display: inline-block;
+min-width: 22px;
+padding: 2px 7px;
+margin-left: 6px;
+font-size: 0.97em;
+background: #ffd700;
+color: #111;
+font-weight: 700;
+border-radius: 16px;
+box-shadow: 0 1px 3px rgba(0,0,0,0.20);
+text-align: center;
+vertical-align: middle;
+transition: background 0.2s;
+position: relative;
+top: -2px;
+/* Add border for pop */
+border: 1.5px solid #fff2b2;
+}
+
+
+.cart-link {
+position: relative;
+display: inline-flex;
+align-items: center;
+font-weight: 500;
+}
+
+
+
+/* Carousel Animation */
+@keyframes scroll {
+0% { transform: translateX(0); }
+100% { transform: translateX(-50%); }
+}
+
+
+/* Footer */
+footer {
+text-align: center;
+background: rgba(0, 0, 0, 0.7);
+padding: 15px;
+color: #aaa;
+font-size: 0.9em;
+}

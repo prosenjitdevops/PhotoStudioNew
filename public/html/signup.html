@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="css/auth.css" />
+</head>
+<body>
+  <!-- Blurred background -->
+  <div class="background-blur">
+    <img src="images/sbg.png" alt="Art 1" />
+  </div>
+
+  <!-- Wrapper to separate About and Form into individual boxes -->
+  <div class="auth-wrapper">
+    
+    <!-- About Website Box -->
+    <div class="auth-box about-box">
+      <h1>Welcome to VisualVerse</h1>
+      <p>
+        Discover a curated collection of stunning digital art created by passionate artists.
+        VisualVerse is your portal to explore, commission, and connect with professional artwork
+        across fantasy, abstract, nature, and more.
+      </p>
+    </div>
+
+    <!-- Sign Up Form Box -->
+    <div class="auth-box signin-box">
+      <h2>Sign Up</h2>
+      <form id="signupForm">
+        <input type="text" id="signupUsername" placeholder="Username" required />
+        <input type="email" id="signupEmail" placeholder="Email" required />
+        <input type="password" id="signupPassword" placeholder="Password" required />
+        <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required />
+        <button type="submit">Sign Up</button>
+        <p>Already have an account? <a href="signin.html">Sign In</a></p>
+      </form>
+    </div>
+    
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>

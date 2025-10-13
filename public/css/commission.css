@@ -1,0 +1,213 @@
+/* Base body styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  /* Padding to allow for fixed header, adjust if header height changes */
+  padding-top: 75px;
+  background: #111;  /* optional dark background or as per your design */
+}
+
+/* Blurred background for commission page */
+.background-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  /* A subtle blurred abstract or pattern image */
+  background-image: url('../images/abstract-bg.jpg'); /* Replace with your image */
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px) brightness(0.75);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Commission container with image and form side by side */
+.commission-container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto; /* center container horizontally */
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Left image panel */
+.commission-image {
+  flex: 1 1 400px;
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+/* Image styling */
+.commission-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Right form panel */
+form#commission-form {
+  flex: 1 1 500px;
+  padding: 40px 50px;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  color: #fff;
+  border-radius: 0 15px 15px 0;
+}
+
+/* Form inputs and textarea */
+
+input[type="text"],
+input[type="email"],
+input[type="file"],
+textarea {
+  padding: 12px 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+textarea::placeholder,
+input[type="file"]::placeholder {
+  color: #ddd;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+input[type="file"]:focus {
+  background: rgba(255, 255, 255, 0.3);
+  outline: none;
+}
+
+/* Submit button */
+
+button {
+  background-color: #ff6f61;
+  color: #fff;
+  padding: 15px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #e85c4f;
+}
+
+/* -------------------
+   HEADER STYLING
+------------------- */
+
+/* Header styling consistent with main style.css */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.65);
+  padding: 15px 30px;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  position: fixed;    /* Fixed at the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  flex-wrap: wrap;
+}
+
+/* Logo and title container */
+header .logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Logo styling */
+
+header .logo-title .logo {
+  max-height: 45px;
+  width: auto;
+}
+
+header .logo-title h1 {
+  margin: 0;
+  font-size: 1.8em;
+  color: #ffd700;
+  font-weight: 700;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navigation menu */
+header nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Navigation links */
+header nav a {
+  text-decoration: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+header nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffd700;
+}
+
+/* Responsive layout for commission page */
+
+@media (max-width: 900px) {
+  .commission-container {
+    flex-direction: column;
+    border-radius: 15px;
+  }
+  .commission-image,
+  form#commission-form {
+    flex: 1 1 100%;
+    border-radius: 0;
+  }
+  form#commission-form {
+    border-radius: 0 0 15px 15px;
+  }
+}
+
+/* Responsive header adjustments (optional, for very small screens) */
+@media (max-width: 700px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  header nav {
+    justify-content: flex-start;
+  }
+}
