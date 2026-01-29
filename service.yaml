@@ -1,0 +1,13 @@
+appVsersion: v1 
+kind: Service
+metadata:
+  name: photostudio-svc
+spec:  
+  selector:
+    app: photostudio
+  ports:
+    - port: 80
+      targetPort: 3000
+      protocal: TCP
+  type: ClusterIP 
+  
