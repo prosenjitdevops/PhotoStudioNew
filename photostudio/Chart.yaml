@@ -1,0 +1,3 @@
+apiVersion: v2
+name: photostudio
+version: 0.1.0

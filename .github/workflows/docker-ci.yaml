@@ -1,0 +1,30 @@
+name: Build and Push to azurecr
+on: 
+  Push:
+    branches:
+      - main
+env: 
+  ACR_NANE: photostudioacr2
+  IMAGE_NAME: photostudio
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/Checkout@v4
+
+      - name: Login to  azure
+        uses: azure/login@v1
+        with: 
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name : Login to ACR
+        run: az acr login --name $ACR_NANE
+
+      - name: Build and Push Image 
+        run: |
+          TAG=${{ github.run_number }}
+          docker build -t $ACR_NAME.azurecr.io/$IMAGE_NAME:$TAG .
+          docker push $ACR_NAME.azurecr.io/$IMAGE_NAME:$TAG

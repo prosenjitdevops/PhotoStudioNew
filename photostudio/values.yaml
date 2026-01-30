@@ -1,0 +1,14 @@
+replicaCount: 2
+
+image:
+  repository: photostudioacr2.azurecr.io/photostudio
+  tag: "1"
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 3000
+
+persistence:
+  enabled: true
+  size: 2Gi

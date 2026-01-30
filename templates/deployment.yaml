@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: photostudio
+  labels:
+    app: photostudio
+spec:
+  replicas: 2
+  selector: 
+    matchLabels:
+      app: photostudio
+    template:
+      metadata:
+        labels: 
+          app: photostudio
+      spec:
+        containers:
+          - name: photostudio
+            image: photostudioacr2.azurecr.io/photostudio:1.0
+            imagePullPolicy: Always
+            ports:
+              - containerPort: 3000
+              
+      
